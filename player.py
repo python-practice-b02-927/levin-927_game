@@ -1,6 +1,7 @@
 import scene
+
 class Player():
-    def __init__(self, x, y, wight, hight, up, down, left, right):
+    def __init__(self, x, y, wight, hight):
         self.x = x
         self.y = y 
         self.hight = hight

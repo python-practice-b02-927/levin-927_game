@@ -1,23 +1,22 @@
 import scene
 import player
-import random
 
 class Tarakan():
-    def __init__(self, x, y, wight, hight):
+     def __init__(self, x, y, wight, hight, up, down, left, right):
         self.x = x
         self.y = y 
         self.hight = hight
         self.wight = wight
-        self.color = (0, 255 , 0)
+        self.color = (240, 0 , 0)
         self.speed = 10
         self.direction = random.randint(0, 1)
         """самый простой выбор. 
         не хочу мучиться со случайным движением с выделенным направлением
         если 0 то по х, если 1 - по у"""
-
+        
         self.static_move_count = 0
 
-        '''def move_up(self):
+    def move_up(self):
         if self.y >=510:
             self.y -= self.speed
             self.static_move_count +=1
@@ -64,12 +63,7 @@ class Tarakan():
             if  self.static_move_count >10 and self.static_move_count <=20:
                 self.move_up
                 if self.static_move_count == 20:
-                    self.static_move_count = 0 '''
-
-    def make_tuple_of_characteristic(self):
-        tuple_of_characteristic = (self.x, self.y, self.wight, self.hight)
-        return tuple_of_characteristic
-
+                    self.static_move_count = 0"""
         
 
         
