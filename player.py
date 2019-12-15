@@ -16,6 +16,8 @@ class Player():
 
         self.speed = 10
 
+        self.damage_area = (0, 0, 0, 0)
+
     def move_up(self):
         if self.y >=510:
             self.y -= self.speed

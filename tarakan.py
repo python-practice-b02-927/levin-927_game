@@ -9,6 +9,7 @@ class Tarakan():
         self.hight = hight
         self.wight = wight
         self.color = (0, 255 , 0)
+
         self.speed = 10
         self.direction = random.randint(0, 1)
         """самый простой выбор. 
@@ -16,6 +17,8 @@ class Tarakan():
         если 0 то по х, если 1 - по у"""
 
         self.static_move_count = 0
+
+        self.health = 70
 
         '''def move_up(self):
         if self.y >=510:
@@ -45,11 +48,11 @@ class Tarakan():
         if player_x == 0:
             pass
     def fight():
-        pass
+        pass'''
 
-    def get_damage():
-        pass
-    
+
+
+    '''
     def hit_player():
         pass
 
