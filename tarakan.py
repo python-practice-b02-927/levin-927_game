@@ -2,8 +2,10 @@ import scene
 import player
 import random
 
+#после смерти класс таракана не удаляется, а с ним просто всё перестаёт взаимодействовать. Нужно прописать if
+
 class Tarakan():
-    def __init__(self, x, y, wight, hight):
+    def __init__(self, x, y, wight, hight, HP):
         self.x = x
         self.y = y 
         self.hight = hight
@@ -18,7 +20,9 @@ class Tarakan():
 
         self.static_move_count = 0
 
-        self.health = 70
+        self.health = HP
+
+        self.tuple_of_characteristic = (self.x, self.y, self.wight, self.hight)
 
         '''def move_up(self):
         if self.y >=510:
@@ -69,9 +73,7 @@ class Tarakan():
                 if self.static_move_count == 20:
                     self.static_move_count = 0 '''
 
-    def make_tuple_of_characteristic(self):
-        tuple_of_characteristic = (self.x, self.y, self.wight, self.hight)
-        return tuple_of_characteristic
+
 
         
 
