@@ -1,8 +1,9 @@
 import scene
 import player
 import random
+import math
 
-#после смерти класс таракана не удаляется, а с ним просто всё перестаёт взаимодействовать. Нужно прописать if
+#после смерти экземпляр класса таракана не удаляется, а с ним просто всё перестаёт взаимодействовать. Нужно прописать if
 
 class Tarakan():
     def __init__(self, x, y, wight, hight, HP):
@@ -11,20 +12,45 @@ class Tarakan():
         self.hight = hight
         self.wight = wight
         self.color = (0, 255 , 0)
+        self.speed = 1
 
-        self.speed = 10
-        self.direction = random.randint(0, 1)
-        """самый простой выбор. 
-        не хочу мучиться со случайным движением с выделенным направлением
-        если 0 то по х, если 1 - по у"""
 
         self.static_move_count = 0
 
         self.health = HP
 
-        self.tuple_of_characteristic = (self.x, self.y, self.wight, self.hight)
+    def tuple_of_characteristic(self):
+        return (self.x, self.y, self.wight, self.hight) 
 
-        '''def move_up(self):
+
+    def move(self, player):
+        r = ( (player.x - self.x)**2 + (self.y - player.y)**2 )**0.5
+        print(r)
+        self.x += self.speed * (player.x - self.x) / r
+        self.y += self.speed * (player.y - self.y) / r
+
+    def get_damage(self, player):
+        if ( self.x > player.damage_area[0] ) and ( self.y > player.damage_area[1] ) and (  (player.damage_area[0] + player.damage_area[2]) > self.x  ) and (  (player.damage_area[1] + player.damage_area[3]) > self.y):
+            self.health -= 1
+
+
+
+        '''
+        прерывистое движение:
+        if t < 70:
+            self.x += random.randint(-100, 100)
+            self.y += random.randint(-100, 100)
+            t = 0
+        else:
+            t += 1
+
+        
+
+    def move_vertical(self):
+        self.x += random.randint(-100,100)
+
+    
+    def move_up(self):
         if self.y >=510:
             self.y -= self.speed
             self.static_move_count +=1
@@ -48,15 +74,10 @@ class Tarakan():
             self.x -= self.speed
             self.static_move_count +=1
 
-    def check_player(self, player_x, player_y):
-        if player_x == 0:
-            pass
-    def fight():
-        pass'''
 
 
 
-    '''
+    
     def hit_player():
         pass
 
