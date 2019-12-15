@@ -17,6 +17,7 @@ tarakan_characteristic = tarakan.make_tuple_of_characteristic()
 
 
 
+
  #создаём игрока, и главный экран
 
 def actions(keys):
@@ -33,6 +34,18 @@ def actions(keys):
     if keys[pygame.K_s]:
         player.move_down()
     player_characteristic = player.make_tuple_of_characteristic()
+
+    if keys[pygame.K_LEFT]:
+        player.hit_left()
+
+    if keys[pygame.K_RIGHT]:
+        player.hit_right()
+
+    if keys[pygame.K_UP]:
+        player.hit_up()
+
+    if keys[pygame.K_DOWN]:
+        player.hit_down()  
     
 
 
@@ -54,6 +67,10 @@ while run:
     win.fill((0,0,0))#закрашиваем окно
     pygame.draw.rect(win, player.color, player_characteristic)   #рисуем игрока
     pygame.draw.rect(win, tarakan.color, tarakan_characteristic)
+    if player.cd != 0:
+        player.damage()
+        pygame.draw.rect(win, (0,0,255), player.damage_area, 5)
+
 
 
     pygame.display.update()
