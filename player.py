@@ -70,7 +70,6 @@ class Player():
     def get_damage(self, tarakan):
         if tarakan.stop_move == (tarakan.stop_move_max - 1) :
             self.health -= 1
-            print(self.health)
 
 
 

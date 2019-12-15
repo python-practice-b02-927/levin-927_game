@@ -2,6 +2,7 @@ import pygame
 import scene
 import player
 import tarakan
+import draw
 
 
 scene_1 = scene.Scene()
@@ -45,7 +46,9 @@ def actions(keys):
         player.hit_up()
 
     if keys[pygame.K_DOWN]:
-        player.hit_down()  
+        player.hit_down() 
+
+
  
 
 
@@ -54,11 +57,8 @@ def actions(keys):
 
 
 
-
-
-
 run = True
-while run:
+while (player.health > 0) and run:
     pygame.time. delay(10)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -67,18 +67,22 @@ while run:
     actions(keys)
     
     win.fill((0,0,0))#закрашиваем окно
-    pygame.draw.rect(win, player.color, player.tuple_of_characteristic())   #рисуем игрока
+    draw.player(win, player)
+
+    draw.HP(win, player)
 
     for tar in tarakanS:
         if tar.health >= 0:
-            pygame.draw.rect(win, tar.color, tar.tuple_of_characteristic())
+            draw.tarakan(win, tar)
             tar.dinamics(player)
             player.get_damage(tar)
 
 
     if player.cd != 0:
         player.damage()
-        pygame.draw.rect(win, (0,0,255), player.damage_area, 5)
+        draw.hit(win, player)
+
+    
 
 
 
