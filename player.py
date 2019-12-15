@@ -1,4 +1,5 @@
 import scene
+import tarakan
 
 class Player():
     def __init__(self, x, y, wight, hight):
@@ -17,6 +18,8 @@ class Player():
         self.speed = 10
 
         self.damage_area = (0, 0, 0, 0)
+
+        self.health = 3
 
     def move_up(self):
         if self.y >=510:
@@ -63,6 +66,11 @@ class Player():
     def damage(self):
         self.cd -= 1
         self.damage_area = (self.x + self.damage_x, self.y + self.damage_y, self.damage_length, self.damage_high )
+
+    def get_damage(self, tarakan):
+        if tarakan.stop_move == (tarakan.stop_move_max - 1) :
+            self.health -= 1
+            print(self.health)
 
 
 

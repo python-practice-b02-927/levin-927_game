@@ -73,6 +73,7 @@ while run:
         if tar.health >= 0:
             pygame.draw.rect(win, tar.color, tar.tuple_of_characteristic())
             tar.dinamics(player)
+            player.get_damage(tar)
 
 
     if player.cd != 0:

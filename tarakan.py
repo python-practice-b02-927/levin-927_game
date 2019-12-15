@@ -15,6 +15,7 @@ class Tarakan():
 
         self.speed = speed
         self.stop_move = 0 # Переменная остановки движения. После того, как таракан нанёс урон игроку, он останавливается, и переменная становится ненулевой
+        self.stop_move_max = 100
         self.damage_radius = 10 # Радиус дамага таракана
 
         self.static_move_count = 0
@@ -30,10 +31,10 @@ class Tarakan():
         self.move(player)
 
     def move(self, player):
-        r = ( (player.x - self.x)**2 + (self.y - player.y)**2 )**0.5
-        if r < self.damage_radius:
-            self.stop_move = 100
         if self.stop_move == 0:
+            r = ( (player.x - self.x)**2 + (self.y - player.y)**2 )**0.5
+            if r < self.damage_radius:
+                self.stop_move = self.stop_move_max
             self.x += self.speed * (player.x - self.x) / r
             self.y += self.speed * (player.y - self.y) / r
         else:
