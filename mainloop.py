@@ -78,9 +78,12 @@ while (player.health > 0) and run:
             player.get_damage(tar)
 
 
-    if player.cd != 0:
-        player.damage()
+    player.damage()
+
+    if player.td > player.cd_max:
         draw.hit(win, player)
+
+    draw.CD(win, player)
 
     
 

@@ -26,7 +26,7 @@ class Tarakan():
         return (self.x, self.y, self.wight, self.hight) 
 
     def dinamics(self, player):
-        if player.cd != 0:
+        if player.td > player.cd_max:
             self.get_damage(player)
         self.move(player)
 
