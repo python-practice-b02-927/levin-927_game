@@ -66,12 +66,8 @@ class Player():
 
 
 
-   
+    def tuple_of_characteristic(self):
+        return (self.x, self.y, self.wight, self.hight)
 
-    
-    
-    def make_tuple_of_characteristic(self):
-        tuple_of_characteristic = (self.x, self.y, self.wight, self.hight)
-        return tuple_of_characteristic
 
         

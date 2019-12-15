@@ -6,14 +6,16 @@ import math
 #после смерти экземпляр класса таракана не удаляется, а с ним просто всё перестаёт взаимодействовать. Нужно прописать if
 
 class Tarakan():
-    def __init__(self, x, y, wight, hight, HP):
+    def __init__(self, x, y, wight, hight, HP, speed):
         self.x = x
         self.y = y 
         self.hight = hight
         self.wight = wight
         self.color = (0, 255 , 0)
-        self.speed = 1
 
+        self.speed = speed
+        self.stop_move = 0 # Переменная остановки движения. После того, как таракан нанёс урон игроку, он останавливается, и переменная становится ненулевой
+        self.damage_radius = 10 # Радиус дамага таракана
 
         self.static_move_count = 0
 
@@ -22,16 +24,26 @@ class Tarakan():
     def tuple_of_characteristic(self):
         return (self.x, self.y, self.wight, self.hight) 
 
+    def dinamics(self, player):
+        if player.cd != 0:
+            self.get_damage(player)
+        self.move(player)
 
     def move(self, player):
         r = ( (player.x - self.x)**2 + (self.y - player.y)**2 )**0.5
-        print(r)
-        self.x += self.speed * (player.x - self.x) / r
-        self.y += self.speed * (player.y - self.y) / r
+        if r < self.damage_radius:
+            self.stop_move = 100
+        if self.stop_move == 0:
+            self.x += self.speed * (player.x - self.x) / r
+            self.y += self.speed * (player.y - self.y) / r
+        else:
+            self.stop_move -= 1
 
     def get_damage(self, player):
         if ( self.x > player.damage_area[0] ) and ( self.y > player.damage_area[1] ) and (  (player.damage_area[0] + player.damage_area[2]) > self.x  ) and (  (player.damage_area[1] + player.damage_area[3]) > self.y):
             self.health -= 1
+
+
 
 
 
@@ -78,10 +90,6 @@ class Tarakan():
 
 
     
-    def hit_player():
-        pass
-
-
     if find player is false
 
     def move_behavior(self, player_x, player_y):
