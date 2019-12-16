@@ -87,6 +87,8 @@ class Player():
             self.shoot_cd -= 1 
         for bullet in self.bullets:
             bullet.move()
+            if bullet.distance > bullet.distance_max:
+                self.bullets.remove(bullet)
 
 
 
@@ -119,11 +121,16 @@ class Bullet():
         self.speed_y =  direction_vertical * self.speed 
 
         self.coordinates = ( self.x - self.size, self.y - self.size, 2*self.size, 2*self.size )
+
+        self.distance = 0
+        self.distance_max = 500
         
     def move(self):
         self.x += self.speed_x
-        self.y += self.speed_y  
+        self.y += self.speed_y
+        self.distance += self.speed  
         self.coordinates = ( self.x - self.size, self.y - self.size, 2*self.size, 2*self.size )
+        print(self.distance)
 
 
 
