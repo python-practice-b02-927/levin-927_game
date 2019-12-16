@@ -2,52 +2,68 @@ import pygame
 import scene
 import player
 import tarakan
+import draw
+
 
 scene_1 = scene.Scene()
 
 win = pygame.display.set_mode(scene_1.size)
 
-multiplayer = True #это говрорит нам, когда у нас включен мультиплеер
-player_1 = player.Player(60, 60, 40, 20, "w", "s", "a", "d") #x, y, wight, hight, up, down, left, right
-player_characteristic = player_1.make_tuple_of_characteristic()
-if multiplayer:
-    player_2 = player.Player(120, 120, 40, 20, "up", "down", "left", "right") #x, y, wight, hight, up, down, left, right
-    player_characteristic_2 = player_2.make_tuple_of_characteristic()
+
+player_1 = player.Player(60, 660, 40, 20) #x, y, half_wight, half_hight
+scene_1.scene_object_for_drawing = []
+scene_1.scene_object_for_drawing.append(player_1)
+
+tarakanS = [] #Множество всех тараканов
+scene_1.scene_object_for_drawing.append(tarakan.Tarakan(60 , 600, 40, 20, 100, 0.5))
+scene_1.scene_object_for_drawing.append(tarakan.Tarakan(300, 600, 40, 20, 50, 1))
+
 
 
  #создаём игрока, и главный экран
 
 def actions(keys):
-    global player_characteristic
-    global player_characteristic_2
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_a]:
         player_1.move_left()
 
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_d]:
         player_1.move_right()
 
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_w]:
         player_1.move_up()
 
-    if keys[pygame.K_DOWN]:
+    if keys[pygame.K_s]:
         player_1.move_down()
-    player_characteristic = player_1.make_tuple_of_characteristic()
+
+    if keys[pygame.K_UP]:
+        player_1.damage_up()
+
+    if keys[pygame.K_DOWN]:
+        player_1.damage_down()
+
+    if keys[pygame.K_LEFT]:
+        player_1.damage_left()
+
+    if keys[pygame.K_RIGHT]:
+        player_1.damage_right()
+
     
+    if keys[pygame.K_SPACE]:
+        player_1.change_weapon()
 
-    if multiplayer:
 
-        if keys[pygame.K_a]:
-            player_2.move_left()
+def all_drawing():
+    
+    for objects in scene_1.scene_object_for_drawing:
+        if type(objects) is player.Player:
+            draw.draw_player(win,objects)
+        if type(objects) is tarakan.Tarakan:
+            if objects.health >= 0:
+                draw.tarakan(win, objects)
+                objects.dinamics(player_1)
+                player_1.get_damage(objects)
 
-        if keys[pygame.K_d]:
-            player_2.move_right()
-
-        if keys[pygame.K_w]:
-            player_2.move_up()
-
-        if keys[pygame.K_s]:
-            player_2.move_down()
-        player_characteristic_2 = player_2.make_tuple_of_characteristic()
+        
 
         
 
@@ -55,20 +71,35 @@ def actions(keys):
 
 
 
-run = True
-while run:
-    pygame.time. delay(100)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-    keys = pygame.key.get_pressed()
-    actions(keys)
-    
-    win.fill((0,0,0))#закрашиваем окно
-    pygame.draw.rect(win, player_1.color, player_characteristic)
-    if multiplayer:
-        pygame.draw.rect(win, player_2.color, player_characteristic_2)
-    #рисуем игрока
 
-    pygame.display.update()
+'''for i in range 4:
+    scene.room(i)'''
+run = True
+while (player_1.health > 0) and run:
+        pygame.time. delay(10)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = Falsed
+        keys = pygame.key.get_pressed()
+        actions(keys)
+
+        player_1.damage()
+    
+        draw.room(win)#рисуем локацию
+        all_drawing()
+
+
+        pygame.display.update()
 pygame.quit()
+
+
+class Scene():
+    def __init__(self):
+        self.size = (1000,1000)
+        self.scene_object_for_drawing = []
+    
+    
+    def make_it_for_drawing(self, object):
+        self.scene_object_for_drawing.append(object)
+    
+
