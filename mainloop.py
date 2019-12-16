@@ -48,9 +48,9 @@ def actions(keys):
     if keys[pygame.K_RIGHT]:
         player.damage_right()
 
-    '''
+    
     if keys[pygame.K_SPACE]:
-        player.change_weapon()'''
+        player.change_weapon()
 
 
  

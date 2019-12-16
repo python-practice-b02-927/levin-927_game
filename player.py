@@ -93,7 +93,9 @@ class Player():
 
 
     def change_weapon(self):
-        self.weapon = -self.weapon
+        if self.td == 0:
+            self.td = self.cd_max
+            self.weapon = -self.weapon
 
     def get_damage(self, tarakan):
         if tarakan.stop_move == (tarakan.stop_move_max - 1) :
