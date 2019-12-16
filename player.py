@@ -1,29 +1,36 @@
 import scene
 import tarakan
 import draw
+import math
 
 class Player():
     def __init__(self, x, y, wight, hight):
         self.x = x
         self.y = y 
-        self.hight = hight
-        self.wight = wight
+        self.half_hight = hight/2
+        self.half_wight = wight/2
         self.color = (255, 0 , 0)
 
         self.cd_max = 200
         self.td_max = 100 # td - это time damage. Функция перезарядки. td_max - это фактическая, а td - оставшаяся до следующего выстрела
         self.td = 0
 
-        self.damage_high_max = 50 # размер дамаг-площадки. Без _max -динамические величины, показывающие область дамага сейчас
-        self.damage_length_max = 200
+        self.shoot_cd_max = 30
+        self.shoot_cd = 0
 
         self.speed = 10
 
-        self.damage_area = (0, 0, 0, 0)
+        self.direction_horizontal = 0
+        self.direction_vertical = 0
+        self.lazer = Lazer(self.x, self.y, self.direction_horizontal, self.direction_vertical)
+        self.bullets = [] 
+
+        self.damage_area = []
+        self.damage_area.append( self.lazer.coordinates )
 
         self.health = 3
 
-
+        self.weapon = 1
 
     def move_up(self):
         if self.y >=100:
@@ -38,39 +45,61 @@ class Player():
         if self.x >= 20:
             self.x -= self.speed
 
-    def hit_up(self):
-        if self.td == 0:
-            self.td = self.td_max + self.cd_max
-            self.damage_x = - self.damage_high_max / 2
-            self.damage_y= - self.damage_length_max
-            self.damage_length = self.damage_high_max
-            self.damage_high = self.damage_length_max
-    def hit_down(self):
-        if self.td == 0:
-            self.td = self.td_max + self.cd_max
-            self.damage_x = -self.damage_high_max /2
-            self.damage_y= 0
-            self.damage_length = self.damage_high_max
-            self.damage_high = self.damage_length_max
-    def hit_right(self):
-        if self.td == 0:
-            self.td = self.td_max + self.cd_max
-            self.damage_x = 0
-            self.damage_y= -self.damage_high_max /2
-            self.damage_length = self.damage_length_max
-            self.damage_high = self.damage_high_max
-    def hit_left(self):
-        if self.td == 0:
-            self.td = self.td_max + self.cd_max
-            self.damage_x = -self.damage_length_max
-            self.damage_y= - self.damage_high_max /2
-            self.damage_length = self.damage_length_max
-            self.damage_high = self.damage_high_max
+    def tuple_of_characteristic(self):
+        return (self.x-self.half_wight, self.y-self.half_hight, 2*self.half_wight, 2*self.half_hight)
+
+
+
+
+            
+    def damage_up(self):
+        self.direction_vertical = -1
+        self.direction_horizontal = 0
+        self.shot()
+    def damage_down(self):
+        self.direction_vertical = 1
+        self.direction_horizontal = 0
+        self.shot()
+    def damage_right(self):
+        self.direction_vertical = 0
+        self.direction_horizontal = 1
+        self.shot()
+    def damage_left(self):
+        self.direction_vertical = 0
+        self.direction_horizontal = -1
+        self.shot()
+
+    def shot(self):
+            if self.weapon == 1:
+                if self.td == 0:
+                    self.td = self.td_max + self.cd_max
+            else:
+                if self.shoot_cd == 0:
+                    self.shoot_cd = self.shoot_cd_max
+                    bullet = Bullet(self.x, self.y, self.direction_horizontal, self.direction_vertical) 
+                    self.bullets.append( bullet )
+                    self.damage_area.append ( bullet.coordinates )
+
+
+    
 
     def damage(self):
+        self.damage_area.clear()
+        self.lazer = Lazer(self.x, self.y, self.direction_horizontal, self.direction_vertical)
+        self.damage_area.append( self.lazer.coordinates )
         if self.td != 0:
             self.td -= 1
-            self.damage_area = (self.x + self.damage_x, self.y + self.damage_y, self.damage_length, self.damage_high )
+        if self.shoot_cd != 0:
+            self.shoot_cd -= 1 
+        for bullet in self.bullets:
+            bullet.move()
+            self.damage_area.append( bullet.coordinates )
+
+
+
+
+    def change_weapon(self):
+        self.weapon = -self.weapon
 
     def get_damage(self, tarakan):
         if tarakan.stop_move == (tarakan.stop_move_max - 1) :
@@ -78,8 +107,51 @@ class Player():
 
 
 
-    def tuple_of_characteristic(self):
-        return (self.x, self.y, self.wight, self.hight)
+
 
 
         
+class Bullet():
+    def __init__(self, x, y, direction_horizontal, direction_vertical):
+        self.x = x
+        self.y = y
+
+        self.speed = 1
+        self.size = 5
+
+        self.speed_x =  direction_horizontal * self.speed
+        self.speed_y =  direction_vertical * self.speed 
+
+        self.coordinates = ( self.x - self.size, self.y - self.size, 2*self.size, 2*self.size )
+        
+    def move(self):
+        self.x += self.speed_x
+        self.y += self.speed_y  
+       
+
+
+
+
+
+
+
+class Lazer():
+    def __init__(self, x, y, direction_horizontal, direction_vertical):
+        self.wight_max = 100 # размер дамаг-площадки. Без _max -динамические величины, показывающие область дамага сейчас
+        self.hight_max = 25
+
+        self.x = (direction_horizontal)*abs(direction_horizontal-1)*self.wight_max - abs(direction_vertical)*self.hight_max +x
+        self.y = (direction_vertical)*abs(direction_vertical-1)*self.wight_max - abs(direction_horizontal)*self.hight_max +y
+        self.wight = 2*abs(direction_vertical)*self.hight_max + 2*abs(direction_horizontal)*self.wight_max
+        self.high = 2*abs(direction_horizontal)*self.hight_max + 2*abs(direction_vertical)*self.wight_max
+
+        self.wight_max = 100 # размер дамаг-площадки. Без _max -динамические величины, показывающие область дамага сейчас
+        self.hight_max = 25
+
+        self.coordinates = (self.x, self.y, self.wight, self.high)
+
+
+    def move(self):
+        pass
+
+

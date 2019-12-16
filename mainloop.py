@@ -10,7 +10,7 @@ scene_1 = scene.Scene()
 win = pygame.display.set_mode(scene_1.size)
 
 
-player = player.Player(60, 660, 40, 20) #x, y, wight, hight
+player = player.Player(60, 660, 40, 20) #x, y, half_wight, half_hight
 
 
 
@@ -36,17 +36,20 @@ def actions(keys):
     if keys[pygame.K_s]:
         player.move_down()
 
-    if keys[pygame.K_LEFT]:
-        player.hit_left()
-
-    if keys[pygame.K_RIGHT]:
-        player.hit_right()
-
     if keys[pygame.K_UP]:
-        player.hit_up()
+        player.damage_up()
 
     if keys[pygame.K_DOWN]:
-        player.hit_down() 
+        player.damage_down()
+
+    if keys[pygame.K_LEFT]:
+        player.damage_left()
+
+    if keys[pygame.K_RIGHT]:
+        player.damage_right()
+
+    if keys[pygame.K_SPACE]:
+        player.change_weapon()
 
 
  
@@ -65,6 +68,8 @@ while (player.health > 0) and run:
             run = False
     keys = pygame.key.get_pressed()
     actions(keys)
+
+    player.damage()
     
     win.fill((0,0,0))#закрашиваем окно
     draw.player(win, player)
@@ -78,10 +83,9 @@ while (player.health > 0) and run:
             player.get_damage(tar)
 
 
-    player.damage()
 
-    if player.td > player.cd_max:
-        draw.hit(win, player)
+    draw.damage(win, player)
+    
 
     draw.CD(win, player)
 

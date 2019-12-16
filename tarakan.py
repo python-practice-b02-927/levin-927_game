@@ -9,8 +9,8 @@ class Tarakan():
     def __init__(self, x, y, wight, hight, HP, speed):
         self.x = x
         self.y = y 
-        self.hight = hight
-        self.wight = wight
+        self.half_hight = hight /2
+        self.half_wight = wight /2
         self.color = (0, 255 , 0)
 
         self.speed = speed
@@ -23,10 +23,10 @@ class Tarakan():
         self.health = HP
 
     def tuple_of_characteristic(self):
-        return (self.x, self.y, self.wight, self.hight) 
+        return (self.x-self.half_wight, self.y-self.half_hight, 2*self.half_wight, 2*self.half_hight) 
 
     def dinamics(self, player):
-        if player.td > player.cd_max:
+        if player.td > (player.cd_max *player.weapon): #Тут, конечно, дикий костыль
             self.get_damage(player)
         self.move(player)
 
@@ -41,8 +41,9 @@ class Tarakan():
             self.stop_move -= 1
 
     def get_damage(self, player):
-        if ( self.x > player.damage_area[0] ) and ( self.y > player.damage_area[1] ) and (  (player.damage_area[0] + player.damage_area[2]) > self.x  ) and (  (player.damage_area[1] + player.damage_area[3]) > self.y):
-            self.health -= 1
+        for damage_point in player.damage_area:
+            if ( self.x > damage_point[0] - self.half_wight ) and ( self.y > damage_point[1] - self.half_hight ) and (  (damage_point[0] + damage_point[2] + self.half_wight ) > self.x  ) and (  (damage_point[1] + damage_point[3] + self.half_hight) > self.y):
+                self.health -= 1
 
 
 
