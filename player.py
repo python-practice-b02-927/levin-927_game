@@ -29,6 +29,7 @@ class Player():
 
         self.weapon = -1
 
+
     def move_up(self):
         if self.y >=100:
             self.y -= self.speed

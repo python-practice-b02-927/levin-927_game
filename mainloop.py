@@ -60,21 +60,21 @@ def actions(keys):
 
 for i in range (0, 4):
     room = scene.Room(i)
-    room.create_enemies(scene.list_enemies)
     run = True
-    while (player.health > 0) and (room.victory == 0) and run:
+    while (player.health > 0) and (room.gate.victory == 0) and run:
         pygame.time. delay(10)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
         actions(pygame.key.get_pressed())
 
+        room.create_enemies(scene.list_enemies)
         player.damage()
     
-        draw.room(win)#рисуем локацию
-        draw.player(win, player)
 
-        draw.HP(win, player)
+        draw.room(win)#рисуем локацию
+        draw.draw_player(win, player)
+
 
         for tar in room.tarakanS:
             draw.tarakan(win, tar)
@@ -82,20 +82,16 @@ for i in range (0, 4):
             player.get_damage(tar)
             if tar.health <= 0:
                 room.tarakanS.remove(tar)
-
-
-
-        draw.damage(win, player)
     
 
-        draw.CD(win, player)
-
-        room.end()
+        if len(room.tarakanS) == 0:
+            draw.gate(win, room.gate.coordinates)
+            room.output(player)
 
 
         pygame.display.update()
 
-    if room.victory == 0:
+    if room.gate.victory == 0:
         break
 
 pygame.quit()

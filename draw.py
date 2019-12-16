@@ -41,3 +41,6 @@ def bullet(win, player):
 
 def room(win):
 	win.fill((0,0,0))
+
+def gate(win, coordinates):
+	pygame.draw.rect(win, (255, 255 ,255), coordinates )
