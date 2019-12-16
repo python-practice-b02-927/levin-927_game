@@ -6,12 +6,12 @@ list_enemies = []
 list_enemies.append([])
 #первая комната
 list_enemies.append([
-tarakan.Tarakan(60 , 600, 40, 20, 100, 0.5, (0, 255, 0) ),
-tarakan.Tarakan(300, 600, 40, 20, 50 ,   1, (0, 255, 0) )
+tarakan.Tarakan(60 , 600, 40, 20, 100, 0.5, (0, 255, 0), 10, 100, 30),
+tarakan.Tarakan(300, 600, 40, 20, 50 ,   1, (0, 255, 0), 20, 100, 10)
 ])
 #вторая комната
 list_enemies.append([
-tarakan.Tarakan(60 , 600, 40, 20, 100, 0.5, (255, 215, 0) )
+tarakan.Tarakan(60 , 600, 40, 20, 100, 0.5, (255, 215, 0), 0, 100, 0 )
 ])
 #третья комната
 list_enemies.append([

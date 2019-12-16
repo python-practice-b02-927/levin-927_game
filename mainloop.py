@@ -13,13 +13,6 @@ win = pygame.display.set_mode(scene_1.size)
 player = player.Player(60, 660, 40, 20) #x, y, half_wight, half_hight
 
 
-
-tarakanS = [] #Множество всех тараканов
-tarakanS.append(tarakan.Tarakan(60 , 600, 40, 20, 100, 0.5, (0, 255, 0) ))
-tarakanS.append(tarakan.Tarakan(300, 600, 40, 20, 50 ,   1, (0, 255, 0) ))
-
-
-
  #создаём игрока, и главный экран
 
 def actions(keys):

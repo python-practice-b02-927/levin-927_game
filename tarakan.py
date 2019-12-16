@@ -5,7 +5,7 @@ import math
 
 
 class Tarakan():
-    def __init__(self, x, y, wight, hight, HP, speed, color):
+    def __init__(self, x, y, wight, hight, HP, speed, color, jump_duration, jump_cd, jump_speed):
         self.x = x
         self.y = y 
         self.half_hight = hight /2
@@ -21,6 +21,13 @@ class Tarakan():
 
         self.health = HP
 
+        self.jump_speed_x = 0
+        self.jump_speed_y = 0
+        self.jump_duration = jump_duration
+        self.jump_cd = jump_cd
+        self.jump_speed = jump_speed
+        self.jump_time = self.jump_duration + self.jump_cd
+
     def tuple_of_characteristic(self):
         return (self.x-self.half_wight, self.y-self.half_hight, 2*self.half_wight, 2*self.half_hight) 
 
@@ -34,10 +41,12 @@ class Tarakan():
             r = ( (player.x - self.x)**2 + (self.y - player.y)**2 )**0.5
             if r < self.damage_radius:
                 self.stop_move = self.stop_move_max
-            self.x += self.speed * (player.x - self.x) / r
-            self.y += self.speed * (player.y - self.y) / r
+            self.jump()
+            self.x += self.speed * (player.x - self.x) / r + self.jump_speed_x
+            self.y += self.speed * (player.y - self.y) / r + self.jump_speed_y
         else:
             self.stop_move -= 1
+
 
     def get_damage(self, player):
         if ( self.x > player.lazer.coordinates[0] - self.half_wight ) and ( self.y > player.lazer.coordinates[1] - self.half_hight ) and (  (player.lazer.coordinates[0] + player.lazer.coordinates[2] + self.half_wight ) > self.x  ) and (  (player.lazer.coordinates[1] + player.lazer.coordinates[3] + self.half_hight) > self.y) and (player.weapon == 1):
@@ -48,63 +57,18 @@ class Tarakan():
                 player.bullets.remove(bullet)
 
 
-
-
-
-        '''
-        прерывистое движение:
-        if t < 70:
-            self.x += random.randint(-100, 100)
-            self.y += random.randint(-100, 100)
-            t = 0
-        else:
-            t += 1
+    def jump(self):
+        if self.jump_time == self.jump_duration:
+            fi = random.random()*2*math.pi
+            self.jump_speed_x = self.jump_speed*math.cos(fi)
+            self.jump_speed_y = self.jump_speed*math.sin(fi)
+        elif self.jump_time == 0:
+            self.jump_speed_x = 0
+            self.jump_speed_y = 0
+            self.jump_time = self.jump_duration + self.jump_cd
+        self.jump_time -= 1
 
         
-
-    def move_vertical(self):
-        self.x += random.randint(-100,100)
-
-    
-    def move_up(self):
-        if self.y >=510:
-            self.y -= self.speed
-            self.static_move_count +=1
-        else:
-            self.static_move_count = 20
-
-    def move_down(self):
-        if self.y <= 950:
-            self.y += self.speed
-            self.static_move_count +=1
-        else:
-            self.static_move_count = 11
-
-    def move_right(self):
-        if self.x <= 960:
-            self.x += self.speed
-            self.static_move_count +=1
-
-    def move_left(self):
-        if self.x >= 20:
-            self.x -= self.speed
-            self.static_move_count +=1
-
-
-
-
-    
-    if find player is false
-
-    def move_behavior(self, player_x, player_y):
-        if direction == 1:
-            if self.static_move_count <=10:
-                self.move_down
-            
-            if  self.static_move_count >10 and self.static_move_count <=20:
-                self.move_up
-                if self.static_move_count == 20:
-                    self.static_move_count = 0 '''
 
 
 
