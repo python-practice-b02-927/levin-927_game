@@ -3,15 +3,14 @@ import player
 import random
 import math
 
-#после смерти экземпляр класса таракана не удаляется, а с ним просто всё перестаёт взаимодействовать. Нужно прописать if
 
 class Tarakan():
-    def __init__(self, x, y, wight, hight, HP, speed):
+    def __init__(self, x, y, wight, hight, HP, speed, color):
         self.x = x
         self.y = y 
         self.half_hight = hight /2
         self.half_wight = wight /2
-        self.color = (0, 255 , 0)
+        self.color = color
 
         self.speed = speed
         self.stop_move = 0 # Переменная остановки движения. После того, как таракан нанёс урон игроку, он останавливается, и переменная становится ненулевой
@@ -41,11 +40,11 @@ class Tarakan():
             self.stop_move -= 1
 
     def get_damage(self, player):
-        if ( self.x > player.lazer.coordinates[0] - self.half_wight ) and ( self.y > player.lazer.coordinates[1] - self.half_hight ) and (  (player.lazer.coordinates[0] + player.lazer.coordinates[2] + self.half_wight ) > self.x  ) and (  (player.lazer.coordinates[1] + player.lazer.coordinates[3] + self.half_hight) > self.y):
+        if ( self.x > player.lazer.coordinates[0] - self.half_wight ) and ( self.y > player.lazer.coordinates[1] - self.half_hight ) and (  (player.lazer.coordinates[0] + player.lazer.coordinates[2] + self.half_wight ) > self.x  ) and (  (player.lazer.coordinates[1] + player.lazer.coordinates[3] + self.half_hight) > self.y) and (player.weapon == 1):
                 self.health -= 1
         for bullet in player.bullets:
             if ( self.x > bullet.coordinates[0] - self.half_wight ) and ( self.y > bullet.coordinates[1] - self.half_hight ) and (  (bullet.coordinates[0] + bullet.coordinates[2] + self.half_wight ) > self.x  ) and (  (bullet.coordinates[1] + bullet.coordinates[3] + self.half_hight) > self.y):
-                self.health -= 1
+                self.health -= 3
                 player.bullets.remove(bullet)
 
 

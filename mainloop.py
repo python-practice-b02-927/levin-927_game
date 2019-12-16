@@ -14,10 +14,9 @@ player = player.Player(60, 660, 40, 20) #x, y, half_wight, half_hight
 
 
 
-
 tarakanS = [] #Множество всех тараканов
-tarakanS.append(tarakan.Tarakan(60 , 600, 40, 20, 100, 0.5))
-tarakanS.append(tarakan.Tarakan(300, 600, 40, 20, 50, 1))
+tarakanS.append(tarakan.Tarakan(60 , 600, 40, 20, 100, 0.5, (0, 255, 0) ))
+tarakanS.append(tarakan.Tarakan(300, 600, 40, 20, 50 ,   1, (0, 255, 0) ))
 
 
 
@@ -59,17 +58,16 @@ def actions(keys):
 
 
 
-
-'''for i in range 4:
-    scene.room(i)'''
-run = True
-while (player.health > 0) and run:
+for i in range (0, 4):
+    room = scene.Room(i)
+    room.create_enemies(scene.list_enemies)
+    run = True
+    while (player.health > 0) and (room.victory == 0) and run:
         pygame.time. delay(10)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-        keys = pygame.key.get_pressed()
-        actions(keys)
+        actions(pygame.key.get_pressed())
 
         player.damage()
     
@@ -78,11 +76,12 @@ while (player.health > 0) and run:
 
         draw.HP(win, player)
 
-        for tar in tarakanS:
-            if tar.health >= 0:
-                draw.tarakan(win, tar)
-                tar.dinamics(player)
-                player.get_damage(tar)
+        for tar in room.tarakanS:
+            draw.tarakan(win, tar)
+            tar.dinamics(player)
+            player.get_damage(tar)
+            if tar.health <= 0:
+                room.tarakanS.remove(tar)
 
 
 
@@ -91,12 +90,12 @@ while (player.health > 0) and run:
 
         draw.CD(win, player)
 
-
-    
-
-
-
+        room.end()
 
 
         pygame.display.update()
+
+    if room.victory == 0:
+        break
+
 pygame.quit()

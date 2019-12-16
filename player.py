@@ -25,7 +25,7 @@ class Player():
         self.lazer = Lazer(self.x, self.y, self.direction_horizontal, self.direction_vertical)
         self.bullets = [] 
 
-        self.health = 3
+        self.health = 10
 
         self.weapon = -1
 
@@ -130,7 +130,6 @@ class Bullet():
         self.y += self.speed_y
         self.distance += self.speed  
         self.coordinates = ( self.x - self.size, self.y - self.size, 2*self.size, 2*self.size )
-        print(self.distance)
 
 
 
