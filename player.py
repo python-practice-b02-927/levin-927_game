@@ -34,10 +34,10 @@ class Player():
         if self.y >=100:
             self.y -= self.speed
     def move_down(self):
-        if self.y <= 950:
+        if self.y <= 980:
             self.y += self.speed
     def move_right(self):
-        if self.x <= 960:
+        if self.x <= 980:
             self.x += self.speed
     def move_left(self):
         if self.x >= 20:

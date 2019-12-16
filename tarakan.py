@@ -67,6 +67,10 @@ class Tarakan():
             self.jump_speed_y = 0
             self.jump_time = self.jump_duration + self.jump_cd
         self.jump_time -= 1
+        if ( self.x > 980 - self.half_wight ) or ( self.x < 5 + self.half_wight ):
+            self.jump_speed_x = -self.jump_speed_x
+        if ( self.y > 980 - self.half_hight ) or ( self.y < 100 + self.half_hight ):
+            self.jump_speed_y = -self.jump_speed_y
 
         
 
