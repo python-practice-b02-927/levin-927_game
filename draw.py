@@ -28,8 +28,11 @@ def damage(win, player):
 			bullet(win, player)
 
 def lazer(win, player):
-    pygame.draw.rect(win, (0,0,255), player.damage_area[0], 5)
+    pygame.draw.rect(win, (0,0,255), player.lazer.coordinates, 5)
 
 def bullet(win, player):
-	for damage_point in player.damage_area:
-		pygame.draw.rect(win, (0,0,255), damage_point, 5)
+	for bullet in player.bullets:
+		pygame.draw.rect(win, (0,0,255), bullet.coordinates)
+
+def room(win):
+	win.fill((0,0,0))

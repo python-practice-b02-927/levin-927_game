@@ -41,8 +41,10 @@ class Tarakan():
             self.stop_move -= 1
 
     def get_damage(self, player):
-        for damage_point in player.damage_area:
-            if ( self.x > damage_point[0] - self.half_wight ) and ( self.y > damage_point[1] - self.half_hight ) and (  (damage_point[0] + damage_point[2] + self.half_wight ) > self.x  ) and (  (damage_point[1] + damage_point[3] + self.half_hight) > self.y):
+        if ( self.x > player.lazer.coordinates[0] - self.half_wight ) and ( self.y > player.lazer.coordinates[1] - self.half_hight ) and (  (player.lazer.coordinates[0] + player.lazer.coordinates[2] + self.half_wight ) > self.x  ) and (  (player.lazer.coordinates[1] + player.lazer.coordinates[3] + self.half_hight) > self.y):
+                self.health -= 1
+        for bullet in player.bullets:
+            if ( self.x > bullet.coordinates[0] - self.half_wight ) and ( self.y > bullet.coordinates[1] - self.half_hight ) and (  (bullet.coordinates[0] + bullet.coordinates[2] + self.half_wight ) > self.x  ) and (  (bullet.coordinates[1] + bullet.coordinates[3] + self.half_hight) > self.y):
                 self.health -= 1
 
 

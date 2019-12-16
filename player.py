@@ -25,12 +25,9 @@ class Player():
         self.lazer = Lazer(self.x, self.y, self.direction_horizontal, self.direction_vertical)
         self.bullets = [] 
 
-        self.damage_area = []
-        self.damage_area.append( self.lazer.coordinates )
-
         self.health = 3
 
-        self.weapon = 1
+        self.weapon = -1
 
     def move_up(self):
         if self.y >=100:
@@ -78,22 +75,19 @@ class Player():
                     self.shoot_cd = self.shoot_cd_max
                     bullet = Bullet(self.x, self.y, self.direction_horizontal, self.direction_vertical) 
                     self.bullets.append( bullet )
-                    self.damage_area.append ( bullet.coordinates )
 
 
     
 
     def damage(self):
-        self.damage_area.clear()
-        self.lazer = Lazer(self.x, self.y, self.direction_horizontal, self.direction_vertical)
-        self.damage_area.append( self.lazer.coordinates )
         if self.td != 0:
+            self.lazer = Lazer(self.x, self.y, self.direction_horizontal, self.direction_vertical)
             self.td -= 1
         if self.shoot_cd != 0:
             self.shoot_cd -= 1 
         for bullet in self.bullets:
             bullet.move()
-            self.damage_area.append( bullet.coordinates )
+
 
 
 
@@ -116,7 +110,7 @@ class Bullet():
         self.x = x
         self.y = y
 
-        self.speed = 1
+        self.speed = 10
         self.size = 5
 
         self.speed_x =  direction_horizontal * self.speed
@@ -127,7 +121,7 @@ class Bullet():
     def move(self):
         self.x += self.speed_x
         self.y += self.speed_y  
-       
+        self.coordinates = ( self.x - self.size, self.y - self.size, 2*self.size, 2*self.size )
 
 
 
@@ -151,7 +145,5 @@ class Lazer():
         self.coordinates = (self.x, self.y, self.wight, self.high)
 
 
-    def move(self):
-        pass
 
 

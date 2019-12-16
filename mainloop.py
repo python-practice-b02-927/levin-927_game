@@ -60,41 +60,43 @@ def actions(keys):
 
 
 
-
+'''for i in range 4:
+    scene.room(i)'''
 run = True
 while (player.health > 0) and run:
-    pygame.time. delay(10)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-    keys = pygame.key.get_pressed()
-    actions(keys)
+        pygame.time. delay(10)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+        keys = pygame.key.get_pressed()
+        actions(keys)
 
-    player.damage()
+        player.damage()
     
-    win.fill((0,0,0))#закрашиваем окно
-    draw.player(win, player)
+        draw.room(win)#рисуем локацию
+        draw.player(win, player)
 
-    draw.HP(win, player)
+        draw.HP(win, player)
 
-    for tar in tarakanS:
-        if tar.health >= 0:
-            draw.tarakan(win, tar)
-            tar.dinamics(player)
-            player.get_damage(tar)
+        for tar in tarakanS:
+            if tar.health >= 0:
+                draw.tarakan(win, tar)
+                tar.dinamics(player)
+                player.get_damage(tar)
 
 
 
-    draw.damage(win, player)
-    
-
-    draw.CD(win, player)
-
+        draw.damage(win, player)
     
 
+        draw.CD(win, player)
+
+
+    
 
 
 
 
-    pygame.display.update()
+
+        pygame.display.update()
 pygame.quit()
