@@ -1,6 +1,11 @@
 import pygame
+import player
 
-
+def draw_player(win,object):
+	player(win, object)
+	HP(win, object)
+	damage(win, object)
+	CD(win, object)
 
 def player(win, player):
     pygame.draw.rect(win, player.color, player.tuple_of_characteristic()) #рисуем игрока
