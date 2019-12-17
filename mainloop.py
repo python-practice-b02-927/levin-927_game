@@ -3,6 +3,7 @@ import scene
 import player_config  
 import tarakan
 import draw
+import math
 
 
 def actions(keys, player):
@@ -93,7 +94,6 @@ def lets_play(run):
                     run = False
             actions(pygame.key.get_pressed(), player)
 
-            room.create_enemies(scene.list_enemies)
             player.damage()
     
 
@@ -109,9 +109,17 @@ def lets_play(run):
                     room.tarakanS.remove(tar)
     
 
+            if room.time_before_create > 0:
+                room.time_before_create -= 1
             if len(room.tarakanS) == 0:
-                draw.gate(win, room.gate.coordinates)
-                room.output(player)
+                if room.number_wave > room.list_enemies[0]:
+                    draw.gate(win, room.gate.coordinates)
+                    room.output(player)
+                else:
+                    draw.pip(win)
+                    if ( abs( player.x - 500 ) < 25 ) and ( abs( player.y - 500 ) < 25 ):
+                        room.create_enemies(scene.list_enemies)
+
 
 
             pygame.display.update()

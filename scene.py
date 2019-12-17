@@ -1,43 +1,35 @@
 import draw
 from tarakan import Tarakan as T
+import random
 
-#   [ type, wight, hight,  HP,  speed,       color,     jump_duration,  jump_cd, jump_speed]
-S  = (  0,     40,    40,   50,     2,    (   0, 255, 0),       40,          100,       10)
-M  = (  1,     60,    60,  100,     3,    ( 255, 165, 0),        0,          500,       0 )
-L  = (  2,     80,    80,  200,     4,    ( 255,  69, 0),        0,          100,       0 )
-XL = (  3,    120,   120,  500,     3,    ( 139,   0, 0),       40,          500,       4 )
-BOSS=(  4,    500,   500, 3000,     2,    ( 139,  69,19),       0,             0,       0 )
 
 list_enemies = []
-#начальная комната
-list_enemies.append([])
+list_enemies.append([
+0,
+[0, 0, 0, 0, 0]
+])
 #первая комната
 list_enemies.append([
-T(150, 500, M),
-T(411, 300, M),
-T(712, 110, L),
-T( 31, 814, L)
+3,
+[0, 2, 2, 0, 0],
+[0, 0, 3, 1, 0],
+[3, 1, 0, 0, 0]
 ])
 #вторая комната
 list_enemies.append([
-T(150, 850, L),
-T(850, 850, L),
-T(850, 150, L),
-T(150, 150, XL)
+1,
+[0, 0, 3, 1, 0]
 ])
 #третья комната
 list_enemies.append([
-T(150, 150, S),
-T(400, 373, S),
-T(105, 911, S),
-T(300, 600, M)
+1,
+[3, 1, 0, 0, 0]
 ])
 #Босс - комната
 list_enemies.append([
-T(750, 500, BOSS)
+1,
+[0, 0, 0, 0, 1]
 ])
-
-
 
 
 
@@ -58,13 +50,17 @@ class Room():
 		self.gate = Gate()
 		self.time_before_create_max = 50
 		self.time_before_create = 2*self.time_before_create_max
+
+		self.number_wave = 1
+		self.list_enemies = list_enemies[self.number]
+		self.enemy = Enemies()
 		self.tarakanS = []
 
 	def create_enemies(self, list_enemies):
-		if self.time_before_create == 0:
-			self.tarakanS = list_enemies[self.number]
-		else:
-			self.time_before_create -= 1 
+			self.enemy.generate(self.list_enemies[self.number_wave])
+			self.tarakanS = self.enemy.list
+			self.number_wave +=1
+
 
 	def output(self, player):
 		if self.time_before_create == 0:
@@ -85,6 +81,26 @@ class Gate():
 			player.x = player.half_wight + 10
 
 
+class Enemies():
+	def __init__(self):
+		     #   [ type, wight, hight,  HP,  speed,       color,     jump_duration,  jump_cd, jump_speed]
+		self.S  = (  0,     40,    40,   50,     2,    (   0, 255, 0),       40,          100,       10)
+		self.M  = (  1,     60,    60,  100,     3,    ( 255, 165, 0),        0,          500,       0 )
+		self.L  = (  2,     80,    80,  200,     4,    ( 255,  69, 0),        0,          100,       0 )
+		self.XL = (  3,    120,   120,  500,     3,    ( 139,   0, 0),       40,          500,       4 )
+		self.BOSS=(  4,    500,   500, 3000,     2,    ( 139,  69,19),        0,            0,       0 )
+		self.characters = [self.S, self.M, self.L, self.XL, self.BOSS]
 
+		self.list = []
+
+	def generate(self, set):
+		for i in range (0, 5):
+			for j in range (0, set[i]):
+				x = 500
+				y = 500
+				while ((abs(x-500) < 100) and (abs(x-500) < 100)): 
+					x = random.randint(70, 930)
+					y = random.randint(170,930)
+				self.list.append( T(x, y, self.characters[i]))
 
 
