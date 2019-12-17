@@ -2,9 +2,9 @@ import tarakan
 import draw
 
 
-#   [ wight, hight,  HP,  speed,       color,     jump_duration,  jump_cd, jump_speed]
-S = (   40,    20,   50,    2,    (   0, 255, 0),       20,          100,       10)
-M = (   40,    20,  100,    1,    ( 255, 165, 0),       20,          500,       5 )
+#   [ type, wight, hight,  HP,  speed,       color,     jump_duration,  jump_cd, jump_speed]
+S = (  0,     40,    20,   50,    2,    (   0, 255, 0),       20,          100,       10)
+M = (  1,     40,    20,  100,    1,    ( 255, 165, 0),       20,          500,       5 )
 
 list_enemies = []
 #начальная комната
