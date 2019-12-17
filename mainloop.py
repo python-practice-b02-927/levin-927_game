@@ -56,7 +56,6 @@ pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por9')),
 
 def actions(keys, player):
     if keys[pygame.K_a]:
-        print("helo")
         player.actions_pictures = action_left_pictures[player.movie_count%9]
         
         player.move_left()
