@@ -18,7 +18,7 @@ class Player():
         self.shoot_cd_max = 30
         self.shoot_cd = 0
 
-        self.speed = 10
+        self.speed = 7
 
         self.direction_horizontal = 0
         self.direction_vertical = 0
@@ -26,7 +26,7 @@ class Player():
         self.lazer.update(self)
         self.bullets = [] 
 
-        self.health = 10
+        self.health = 2
 
         self.weapon = -1
 
@@ -118,8 +118,8 @@ class Bullet():
         self.x = x
         self.y = y
 
-        self.speed = 10
-        self.size = 5
+        self.speed = 5
+        self.size = 15
 
         self.speed_x =  direction_horizontal * self.speed
         self.speed_y =  direction_vertical * self.speed 
@@ -143,8 +143,8 @@ class Bullet():
 
 class Lazer():
     def __init__(self, direction_horizontal, direction_vertical):
-        self.wight_max = 1000 # размер дамаг-площадки. Без _max -динамические величины, показывающие область дамага сейчас
-        self.hight_max = 250
+        self.wight_max = 100 # размер дамаг-площадки. Без _max -динамические величины, показывающие область дамага сейчас
+        self.hight_max = 25
 
         self.direction_horizontal = direction_horizontal
         self.direction_vertical = direction_vertical
@@ -154,8 +154,6 @@ class Lazer():
         self.wight = 2*abs(direction_vertical)*self.hight_max + 2*abs(direction_horizontal)*self.wight_max
         self.high = 2*abs(direction_horizontal)*self.hight_max + 2*abs(direction_vertical)*self.wight_max
 
-        self.wight_max = 100 # размер дамаг-площадки. Без _max -динамические величины, показывающие область дамага сейчас
-        self.hight_max = 25
 
     def update(self, player):
         self.x = self.x_0 + player.x

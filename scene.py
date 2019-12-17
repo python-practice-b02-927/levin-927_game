@@ -1,42 +1,41 @@
-import tarakan
 import draw
-
+from tarakan import Tarakan as T
 
 #   [ type, wight, hight,  HP,  speed,       color,     jump_duration,  jump_cd, jump_speed]
-S = (  0,     40,    20,   50,    2,    (   0, 255, 0),       20,          100,       10)
-M = (  1,     40,    20,  100,    1,    ( 255, 165, 0),       20,          500,       5 )
+S  = (  0,     40,    40,   50,     2,    (   0, 255, 0),       40,          100,       10)
+M  = (  1,     60,    60,  100,     3,    ( 255, 165, 0),        0,          500,       0 )
+L  = (  2,     80,    80,  200,     4,    ( 255,  69, 0),        0,          100,       0 )
+XL = (  3,    120,   120,  500,     3,    ( 139,   0, 0),       40,          500,       4 )
+BOSS=(  4,    500,   500, 3000,     2,    ( 139,  69,19),       0,             0,       0 )
 
 list_enemies = []
 #начальная комната
 list_enemies.append([])
 #первая комната
 list_enemies.append([
-tarakan.Tarakan(150, 150, S),
-tarakan.Tarakan(300,600,  M)
+T(150, 500, M),
+T(411, 300, M),
+T(712, 110, L),
+T( 31, 814, L)
 ])
 #вторая комната
 list_enemies.append([
-tarakan.Tarakan(150, 500, M)
+T(150, 850, L),
+T(850, 850, L),
+T(850, 150, L),
+T(150, 150, XL)
 ])
 #третья комната
 list_enemies.append([
-
+T(150, 150, S),
+T(400, 373, S),
+T(105, 911, S),
+T(300, 600, M)
 ])
 #Босс - комната
 list_enemies.append([
-
+T(750, 500, BOSS)
 ])
-
-def M_tarakan(x, y):
-    wight = 40
-    hight = 20
-    HP = 100
-    speed = 0.5
-    color = ( 255, 165, 0)
-    jump_duration = 20
-    jump_cd = 100
-    jump_speed = 10
-
 
 
 

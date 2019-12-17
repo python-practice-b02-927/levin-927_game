@@ -43,7 +43,7 @@ class Tarakan():
     def move(self, player):
         if self.stop_move == 0:
             r = ( (player.x - self.x)**2 + (self.y - player.y)**2 )**0.5
-            if r < self.damage_radius:
+            if ( abs(self.x - player.x) < player.half_wight + self.half_wight ) and ( abs(self.y - player.y) < player.half_hight + self.half_hight ):
                 self.stop_move = self.stop_move_max
             self.jump()
             self.x += self.speed * (player.x - self.x) / r + self.jump_speed_x
@@ -54,10 +54,10 @@ class Tarakan():
 
     def get_damage(self, player):
         if ( self.x > player.lazer.coordinates[0] - self.half_wight ) and ( self.y > player.lazer.coordinates[1] - self.half_hight ) and (  (player.lazer.coordinates[0] + player.lazer.coordinates[2] + self.half_wight ) > self.x  ) and (  (player.lazer.coordinates[1] + player.lazer.coordinates[3] + self.half_hight) > self.y) and (player.weapon == 1):
-                self.health -= 2
+                self.health -= 5
         for bullet in player.bullets:
             if ( self.x > bullet.coordinates[0] - self.half_wight ) and ( self.y > bullet.coordinates[1] - self.half_hight ) and (  (bullet.coordinates[0] + bullet.coordinates[2] + self.half_wight ) > self.x  ) and (  (bullet.coordinates[1] + bullet.coordinates[3] + self.half_hight) > self.y):
-                self.health -= 3
+                self.health -= 10
                 player.bullets.remove(bullet)
 
 

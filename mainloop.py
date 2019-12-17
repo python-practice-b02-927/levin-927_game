@@ -36,7 +36,7 @@ def actions(keys, player):
 
 
 
-
+'''
 def menu():
     win = pygame.display.set_mode((1000,1000))
     run = True
@@ -80,11 +80,11 @@ def title_death(run):
             break
     pygame.quit()
 
-
+'''
 def lets_play(run):
     win = pygame.display.set_mode((1000,1000))
     player = player_config.Player(500, 500, 40, 20) #x, y, half_wight, half_hight
-    for i in range (0, 4):
+    for i in range (0, 5):
         room = scene.Room(i)
         while (player.health > 0) and (room.gate.victory == 0) and run:
             pygame.time. delay(10)
@@ -117,16 +117,19 @@ def lets_play(run):
             pygame.display.update()
 
         if room.gate.victory == 0:
-                break
+            break 
+            '''
     pygame.quit()
     if player.health == 0:
         title_death
-    else: title_victory(run)
+    else: title_victory(run) '''
 
 
 
 
 
 
-menu()
+#menu()
+run = True
+lets_play(run)
 pygame.quit()
