@@ -52,12 +52,12 @@ class Room():
 		self.time_before_create = 2*self.time_before_create_max
 
 		self.number_wave = 1
-		self.list_enemies = list_enemies[self.number]
+		self.list_enemies = list_enemies[0]
 		self.enemy = Enemies()
 		self.tarakanS = []
 
 	def create_enemies(self, list_enemies):
-			self.enemy.generate(self.list_enemies[self.number_wave])
+			self.enemy.generate(self.list_enemies[self.number_wave-1])
 			self.tarakanS = self.enemy.list
 			self.number_wave +=1
 
@@ -93,9 +93,11 @@ class Enemies():
 
 		self.list = []
 
-	def generate(self, set):
-		for i in range (0, 5):
-			for j in range (0, set[i]):
+	def generate(self, seting):
+		print(type(seting))
+		for i in range (5):
+			a = seting
+			for j in range(a):
 				x = 500
 				y = 500
 				while ((abs(x-500) < 100) and (abs(x-500) < 100)): 

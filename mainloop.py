@@ -103,7 +103,7 @@ def actions(keys, player):
         player.change_weapon()
 
 
-'''
+
 def menu():
     win = pygame.display.set_mode((1000,1000))
     run = True
@@ -147,7 +147,7 @@ def title_death(run):
             break
     pygame.quit()
 
-'''
+
 
 
 def lets_play(run):
@@ -162,7 +162,7 @@ def lets_play(run):
                     run = False
             actions(pygame.key.get_pressed(), player)
 
-            room.create_enemies(scene.list_enemies)
+            
 
             player.damage()
     
@@ -174,8 +174,12 @@ def lets_play(run):
             for tar in room.tarakanS:
                 if tar.type == 0:
                     tar.picture_move = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','tarakan_left.png'))
-                else: 
+                elif tar.type == 1: 
                     tar.picture_move = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','clop'))
+                elif tar.type == 2:
+                    tar.picture_move = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','srider'))
+                elif tar.type == 3:
+                    tar.picture_move = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','bee'))
                 draw.tarakan(win, tar, player)
                 tar.dinamics(player)
                 player.get_damage(tar)
@@ -211,7 +215,7 @@ def lets_play(run):
 
 
 
-#menu()
+#ddddddwmenu()
 run = True
 lets_play(run)
 pygame.quit()

@@ -8,11 +8,11 @@ def draw_player(win,object):
 	CD(win, object)
 
 def player(win, object):
-    win.blit(object.actions_pictures,(object.x, object.y))#рисуем игрока
+    win.blit(object.actions_pictures,(object.x, object.y - object.half_hight))#рисуем игрока
     
 def tarakan(win, tarakan, player):
 	
-	win.blit(tarakan.x - tarakan.half_wight,(tarakan.y- tarakan.half_hight ))
+	win.blit(tarakan.direction(player),(tarakan.x - tarakan.half_wight, tarakan.y- tarakan.half_hight ))
 
 def HP(win, player):
 	for i in range (player.health ):
