@@ -1,5 +1,5 @@
 import scene
-import player
+import player_config
 import random
 import math
 

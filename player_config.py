@@ -143,8 +143,8 @@ class Bullet():
 
 class Lazer():
     def __init__(self, direction_horizontal, direction_vertical):
-        self.wight_max = 100 # размер дамаг-площадки. Без _max -динамические величины, показывающие область дамага сейчас
-        self.hight_max = 25
+        self.wight_max = 1000 # размер дамаг-площадки. Без _max -динамические величины, показывающие область дамага сейчас
+        self.hight_max = 250
 
         self.direction_horizontal = direction_horizontal
         self.direction_vertical = direction_vertical

@@ -1,5 +1,5 @@
 import pygame
-import player
+import player_config
 
 def draw_player(win,object):
 	player(win, object)
@@ -44,3 +44,13 @@ def room(win):
 
 def gate(win, coordinates):
 	pygame.draw.rect(win, (255, 255 ,255), coordinates )
+
+
+def start_page(win):
+	win.fill((255, 215, 0))
+
+def title_victory(win):
+	win.fill((255, 255, 255))
+
+def title_death(win):
+	win.fill((128, 0, 0))

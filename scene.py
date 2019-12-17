@@ -71,6 +71,7 @@ class Room():
 		if self.time_before_create == 0:
 			self.gate.input(player)
 
+
 class Gate():
 	def __init__ (self):
 		self.size = 100 
@@ -86,9 +87,5 @@ class Gate():
 
 
 
-
-class Scene():
-    def __init__(self):
-        self.size = (1000,1000)
 
 
