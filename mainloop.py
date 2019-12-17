@@ -6,7 +6,6 @@ import scene
 
 import tarakan
 import draw
-<<<<<<< HEAD
 import os
 
 
@@ -53,9 +52,6 @@ pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por7')),
 pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por8')),
 pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por9')),
 ]
-=======
-import math
->>>>>>> bbd957a27c2d451b37c4ba536c0f7e218f172778
 
 
 def actions(keys, player):
@@ -166,11 +162,8 @@ def lets_play(run):
                     run = False
             actions(pygame.key.get_pressed(), player)
 
-<<<<<<< HEAD
             room.create_enemies(scene.list_enemies)
 
-=======
->>>>>>> bbd957a27c2d451b37c4ba536c0f7e218f172778
             player.damage()
     
 
