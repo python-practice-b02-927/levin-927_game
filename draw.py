@@ -8,10 +8,10 @@ def draw_player(win,object):
 	CD(win, object)
 
 def player(win, player):
-    pygame.draw.rect(win, player.color, player.tuple_of_characteristic()) #рисуем игрока
+    pygame.draw.rect(win, player.color, player.coordinates()) #рисуем игрока
     
 def tarakan(win, tarakan):
-    pygame.draw.rect(win, tarakan.color, tarakan.tuple_of_characteristic())
+    pygame.draw.rect(win, tarakan.color, tarakan.coordinates())
 
 def HP(win, player):
 	for i in range (player.health ):

@@ -1,17 +1,22 @@
 import tarakan
 import draw
 
+
+#   [ wight, hight,  HP,  speed,       color,     jump_duration,  jump_cd, jump_speed]
+S = (   40,    20,   50,    2,    (   0, 255, 0),       20,          100,       10)
+M = (   40,    20,  100,    1,    ( 255, 165, 0),       20,          500,       5 )
+
 list_enemies = []
 #начальная комната
 list_enemies.append([])
 #первая комната
 list_enemies.append([
-tarakan.Tarakan(60 , 600, 40, 20, 100, 0.5, (0, 255, 0), 10, 100, 30),
-tarakan.Tarakan(300, 600, 40, 20, 50 ,   1, (0, 255, 0), 20, 100, 10)
+tarakan.Tarakan(150, 150, S),
+tarakan.Tarakan(300,600,  M)
 ])
 #вторая комната
 list_enemies.append([
-tarakan.Tarakan(60 , 600, 40, 20, 100, 0.5, (255, 215, 0), 0, 100, 0 )
+tarakan.Tarakan(150, 500, M)
 ])
 #третья комната
 list_enemies.append([
@@ -21,6 +26,29 @@ list_enemies.append([
 list_enemies.append([
 
 ])
+
+def M_tarakan(x, y):
+    wight = 40
+    hight = 20
+    HP = 100
+    speed = 0.5
+    color = ( 255, 165, 0)
+    jump_duration = 20
+    jump_cd = 100
+    jump_speed = 10
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

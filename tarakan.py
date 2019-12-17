@@ -5,30 +5,32 @@ import math
 
 
 class Tarakan():
-    def __init__(self, x, y, wight, hight, HP, speed, color, jump_duration, jump_cd, jump_speed):
+    def __init__(self, x, y, characteristic):
         self.x = x
-        self.y = y 
-        self.half_hight = hight /2
-        self.half_wight = wight /2
-        self.color = color
+        self.y = y
+  
+        self.half_hight = characteristic[1] /2
+        self.half_wight = characteristic[0] /2
+        self.color = characteristic[4]
 
-        self.speed = speed
+        self.speed = characteristic[3]
         self.stop_move = 0 # Переменная остановки движения. После того, как таракан нанёс урон игроку, он останавливается, и переменная становится ненулевой
         self.stop_move_max = 100
         self.damage_radius = 10 # Радиус дамага таракана
 
         self.static_move_count = 0
 
-        self.health = HP
+        self.health = characteristic[2]
 
         self.jump_speed_x = 0
         self.jump_speed_y = 0
-        self.jump_duration = jump_duration
-        self.jump_cd = jump_cd
-        self.jump_speed = jump_speed
+        self.jump_duration = characteristic[5]
+        self.jump_cd = characteristic[6]
+        self.jump_speed = characteristic[7]
         self.jump_time = self.jump_duration + self.jump_cd
 
-    def tuple_of_characteristic(self):
+
+    def coordinates(self):
         return (self.x-self.half_wight, self.y-self.half_hight, 2*self.half_wight, 2*self.half_hight) 
 
     def dinamics(self, player):
@@ -74,10 +76,5 @@ class Tarakan():
 
         
 
-
-
-        
-
-        
 
 

@@ -23,6 +23,7 @@ class Player():
         self.direction_horizontal = 0
         self.direction_vertical = 0
         self.lazer = Lazer( self.direction_horizontal, self.direction_vertical)
+        self.lazer.update(self)
         self.bullets = [] 
 
         self.health = 10
@@ -43,7 +44,7 @@ class Player():
         if self.x >= 20:
             self.x -= self.speed
 
-    def tuple_of_characteristic(self):
+    def coordinates(self):
         return (self.x-self.half_wight, self.y-self.half_hight, 2*self.half_wight, 2*self.half_hight)
 
 
@@ -72,6 +73,7 @@ class Player():
                 if self.td == 0:
                     self.td = self.td_max + self.cd_max
                     self.lazer = Lazer( self.direction_horizontal, self.direction_vertical)
+                    self.lazer.update(self)
             else:
                 if self.shoot_cd == 0:
                     self.shoot_cd = self.shoot_cd_max
