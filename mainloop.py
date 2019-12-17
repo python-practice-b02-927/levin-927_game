@@ -1,39 +1,106 @@
+
+import player_config  
 import pygame
 import scene
-import player_config  
+
+
 import tarakan
 import draw
+import os
+
+
+action_left_pictures = [pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro1')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro2')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro3')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro4')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro5')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro6')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro7')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro8')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro9')),
+]
+
+action_up_pictures = [pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor1')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor2')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor3')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor4')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor5')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor6')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor7')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor8')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor9')),
+]
+
+action_right_pictures = [pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p1')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p2')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p3')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p4')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p5')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p6')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p7')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p8')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p9')),
+]
+
+action_down_pictures = [pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por1')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por2')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por3')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por4')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por5')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por6')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por7')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por8')),
+pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por9')),
+]
 
 
 def actions(keys, player):
     if keys[pygame.K_a]:
+        print("helo")
+        player.actions_pictures = action_left_pictures[player.movie_count%9]
+        
         player.move_left()
+        
+        
 
     if keys[pygame.K_d]:
+        
+        player.actions_pictures = action_right_pictures[player.movie_count%9]
         player.move_right()
+        
 
     if keys[pygame.K_w]:
+        
+        player.actions_pictures = action_up_pictures[player.movie_count%9]
         player.move_up()
+        
 
     if keys[pygame.K_s]:
+        
+        player.actions_pictures = action_down_pictures[player.movie_count%9]
         player.move_down()
+        
 
     if keys[pygame.K_UP]:
+        
+        player.actions_pictures = action_up_pictures[2]
         player.damage_up()
 
     if keys[pygame.K_DOWN]:
+        player.actions_pictures = action_down_pictures[0]
         player.damage_down()
 
     if keys[pygame.K_LEFT]:
+        player.actions_pictures = action_left_pictures[5]
         player.damage_left()
 
     if keys[pygame.K_RIGHT]:
+        player.actions_pictures = action_right_pictures[1]
         player.damage_right()
 
     
-    if keys[pygame.K_q]:
+    if keys[pygame.K_SPACE]:
         player.change_weapon()
-
 
 
 '''
@@ -81,6 +148,8 @@ def title_death(run):
     pygame.quit()
 
 '''
+
+
 def lets_play(run):
     win = pygame.display.set_mode((1000,1000))
     player = player_config.Player(500, 500, 40, 20) #x, y, half_wight, half_hight
@@ -94,6 +163,7 @@ def lets_play(run):
             actions(pygame.key.get_pressed(), player)
 
             room.create_enemies(scene.list_enemies)
+
             player.damage()
     
 
@@ -102,7 +172,11 @@ def lets_play(run):
 
 
             for tar in room.tarakanS:
-                draw.tarakan(win, tar)
+                if tar.type == 0:
+                    tar.picture_move = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','tarakan_left.png'))
+                else: 
+                    tar.picture_move = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','clop'))
+                draw.tarakan(win, tar, player)
                 tar.dinamics(player)
                 player.get_damage(tar)
                 if tar.health <= 0:

@@ -1,7 +1,9 @@
 import scene
+import pygame
 import player_config
 import random
 import math
+import os
 
 
 class Tarakan():
@@ -13,7 +15,8 @@ class Tarakan():
   
         self.half_hight = characteristic[2] /2
         self.half_wight = characteristic[1] /2
-        self.color = characteristic[5]
+        self.picture_move = 0
+
 
         self.speed = characteristic[4]
         self.stop_move = 0 # Переменная остановки движения. После того, как таракан нанёс урон игроку, он останавливается, и переменная становится ненулевой
@@ -40,6 +43,27 @@ class Tarakan():
             self.get_damage(player)
         self.move(player)
 
+
+
+    def make_angle(self, player):
+        vector_x =  (player.x - self.x)/((player.x - self.x)**2 + (self.y - player.y)**2 )**0.5
+        vector_y = (player.y - self.y)/((player.x - self.x)**2 + (self.y - player.y)**2 )**0.5
+        
+
+        angle = math.sin(vector_y)
+        return math.degrees(math.asin(angle)) if self.x >= player.x else 180 - math.degrees(math.asin(angle))
+
+   
+
+    def direction(self, player):
+        angle = self.make_angle(player)
+        
+        self.angle = angle
+        rotated_image = pygame.transform.rotate(self.picture_move, self.angle)
+        
+        return rotated_image
+
+
     def move(self, player):
         if self.stop_move == 0:
             r = ( (player.x - self.x)**2 + (self.y - player.y)**2 )**0.5
@@ -50,6 +74,9 @@ class Tarakan():
             self.y += self.speed * (player.y - self.y) / r + self.jump_speed_y
         else:
             self.stop_move -= 1
+
+
+
 
 
     def get_damage(self, player):

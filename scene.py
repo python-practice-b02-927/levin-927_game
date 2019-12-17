@@ -80,7 +80,7 @@ class Gate():
 
 	def input(self, player):
 		self.coordinates = (990-self.wight, 500-self.size, 2*self.wight, 2*self.size )
-		if ( player.x + player.half_wight >= 990 ) and ( player.y + player.half_hight - self.size < 500 ) and ( player.y - player.half_hight + self.size > 500 ):
+		if ( player.x + player.half_wight >= 960 ) and ( player.y + player.half_hight - self.size < 500 ) and ( player.y - player.half_hight + self.size > 500 ):
 			self.victory = 1
 			player.x = player.half_wight + 10
 

@@ -3,6 +3,11 @@ import tarakan
 import draw
 import math
 
+import player_config  
+import pygame
+import os
+
+
 class Player():
     def __init__(self, x, y, wight, hight):
         self.x = x
@@ -10,6 +15,8 @@ class Player():
         self.half_hight = hight/2
         self.half_wight = wight/2
         self.color = (255, 0 , 0)
+        self.actions_pictures = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por1'))
+
 
         self.cd_max = 200
         self.td_max = 100 # td - это time damage. Функция перезарядки. td_max - это фактическая, а td - оставшаяся до следующего выстрела
@@ -22,7 +29,9 @@ class Player():
 
         self.direction_horizontal = 0
         self.direction_vertical = 0
-        self.lazer = Lazer( self.direction_horizontal, self.direction_vertical)
+        global licture
+        licture = 0
+        self.lazer = Lazer( self.direction_horizontal, self.direction_vertical, licture)
         self.lazer.update(self)
         self.bullets = [] 
 
@@ -31,18 +40,36 @@ class Player():
         self.weapon = -1
 
 
+    
+        self.movie_count = 0 
+
+
+
     def move_up(self):
         if self.y >=100:
             self.y -= self.speed
+            self.movie_count+=1
+            if self.movie_count>=9:
+                self.movie_count %=9 
     def move_down(self):
-        if self.y <= 980:
+        if self.y <= 950:
             self.y += self.speed
-    def move_right(self):
-        if self.x <= 980:
+            self.movie_count+=1
+            if self.movie_count>=9:
+                self.movie_count %=9 
+    def move_right(self): 
+        print(self.x) 
+        if self.x <= 960:
             self.x += self.speed
+            self.movie_count+=1
+            if self.movie_count>=9:
+                self.movie_count %=9 
     def move_left(self):
         if self.x >= 20:
             self.x -= self.speed
+            self.movie_count+=1
+            if self.movie_count>=9:
+                self.movie_count %=9 
 
     def coordinates(self):
         return (self.x-self.half_wight, self.y-self.half_hight, 2*self.half_wight, 2*self.half_hight)
@@ -52,18 +79,22 @@ class Player():
 
             
     def damage_up(self):
+        
         self.direction_vertical = -1
         self.direction_horizontal = 0
         self.shot()
     def damage_down(self):
+       
         self.direction_vertical = 1
         self.direction_horizontal = 0
         self.shot()
     def damage_right(self):
+       
         self.direction_vertical = 0
         self.direction_horizontal = 1
         self.shot()
     def damage_left(self):
+     
         self.direction_vertical = 0
         self.direction_horizontal = -1
         self.shot()
@@ -72,12 +103,38 @@ class Player():
             if self.weapon == 1:
                 if self.td == 0:
                     self.td = self.td_max + self.cd_max
-                    self.lazer = Lazer( self.direction_horizontal, self.direction_vertical)
+                    luv = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','laserup'))
+                    lug = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','lasergor'))
+                    if self.direction_horizontal == -1:
+                        licture = lug
+                    elif self.direction_horizontal == 1:
+                        licture = luv
+                    elif self.direction_vertical == -1:
+                        licture = luv
+                    else:
+                        licture = lug
+                    self.lazer = Lazer( self.direction_horizontal, self.direction_vertical, licture)
                     self.lazer.update(self)
             else:
                 if self.shoot_cd == 0:
                     self.shoot_cd = self.shoot_cd_max
-                    bullet = Bullet(self.x, self.y, self.direction_horizontal, self.direction_vertical) 
+
+                    bup = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','smallfire_up'))
+                    bud = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','smallfire_down'))
+                    bul = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','smallfire_left'))
+                    bur = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','smallfire_right'))
+                    if self.direction_horizontal == -1:
+                        picture = bul
+                    elif self.direction_horizontal == 1:
+                        picture = bur
+                    elif self.direction_vertical == -1:
+                        picture = bup
+                    else:
+                        picture = bud
+
+
+
+                    bullet = Bullet(self.x, self.y, self.direction_horizontal, self.direction_vertical, picture) 
                     self.bullets.append( bullet )
 
 
@@ -114,9 +171,10 @@ class Player():
 
         
 class Bullet():
-    def __init__(self, x, y, direction_horizontal, direction_vertical):
+    def __init__(self, x, y, direction_horizontal, direction_vertical, picture):
         self.x = x
         self.y = y
+        self.picture = picture
 
         self.speed = 5
         self.size = 15
@@ -124,7 +182,7 @@ class Bullet():
         self.speed_x =  direction_horizontal * self.speed
         self.speed_y =  direction_vertical * self.speed 
 
-        self.coordinates = ( self.x - self.size, self.y - self.size, 2*self.size, 2*self.size )
+        self.coordinates = ( self.x + self.size, self.y + self.size, 2*self.size, 2*self.size )
 
         self.distance = 0
         self.distance_max = 500
@@ -133,7 +191,7 @@ class Bullet():
         self.x += self.speed_x
         self.y += self.speed_y
         self.distance += self.speed  
-        self.coordinates = ( self.x - self.size, self.y - self.size, 2*self.size, 2*self.size )
+        self.coordinates = ( self.x - self.size, self.y + 2 * self.size, 2*self.size, 2*self.size )
 
 
 
@@ -142,9 +200,10 @@ class Bullet():
 
 
 class Lazer():
-    def __init__(self, direction_horizontal, direction_vertical):
+    def __init__(self, direction_horizontal, direction_vertical, licture):
         self.wight_max = 100 # размер дамаг-площадки. Без _max -динамические величины, показывающие область дамага сейчас
         self.hight_max = 25
+        self.picture = licture
 
         self.direction_horizontal = direction_horizontal
         self.direction_vertical = direction_vertical

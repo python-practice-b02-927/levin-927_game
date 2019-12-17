@@ -7,11 +7,12 @@ def draw_player(win,object):
 	damage(win, object)
 	CD(win, object)
 
-def player(win, player):
-    pygame.draw.rect(win, player.color, player.coordinates()) #рисуем игрока
+def player(win, object):
+    win.blit(object.actions_pictures,(object.x, object.y))#рисуем игрока
     
-def tarakan(win, tarakan):
-    pygame.draw.rect(win, tarakan.color, tarakan.coordinates())
+def tarakan(win, tarakan, player):
+	
+	win.blit(tarakan.x - tarakan.half_wight,(tarakan.y- tarakan.half_hight ))
 
 def HP(win, player):
 	for i in range (player.health ):
@@ -33,11 +34,11 @@ def damage(win, player):
 			bullet(win, player)
 
 def lazer(win, player):
-    pygame.draw.rect(win, (0,0,255), player.lazer.coordinates, 5)
+    win.blit(player.lazer.picture, player.lazer.coordinates)
 
 def bullet(win, player):
 	for bullet in player.bullets:
-		pygame.draw.rect(win, (0,0,255), bullet.coordinates)
+		win.blit(bullet.picture,bullet.coordinates)
 
 def room(win):
 	win.fill((0,0,0))
