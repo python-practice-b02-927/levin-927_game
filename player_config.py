@@ -35,7 +35,7 @@ class Player():
         self.lazer.update(self)
         self.bullets = [] 
 
-        self.health = 2
+        self.health = 20
 
         self.weapon = -1
 

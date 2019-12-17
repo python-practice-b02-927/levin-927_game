@@ -55,3 +55,6 @@ def title_victory(win):
 
 def title_death(win):
 	win.fill((128, 0, 0))
+
+def pip(win):
+	pygame.draw.rect(win, (255, 0, 0), (475, 475, 50, 50), 5)
