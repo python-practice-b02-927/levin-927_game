@@ -15,7 +15,7 @@ class Player():
         self.half_hight = hight/2
         self.half_wight = wight/2
         self.color = (255, 0 , 0)
-        self.actions_pictures = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por1'))
+        self.actions_pictures = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por1'))
 
 
         self.cd_max = 200
@@ -57,8 +57,7 @@ class Player():
             self.movie_count+=1
             if self.movie_count>=9:
                 self.movie_count %=9 
-    def move_right(self): 
-        print(self.x) 
+    def move_right(self):  
         if self.x <= 960:
             self.x += self.speed
             self.movie_count+=1
@@ -103,8 +102,8 @@ class Player():
             if self.weapon == 1:
                 if self.td == 0:
                     self.td = self.td_max + self.cd_max
-                    luv = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','laserup'))
-                    lug = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','lasergor'))
+                    luv = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','laserup'))
+                    lug = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','lasergor'))
                     if self.direction_horizontal == -1:
                         licture = lug
                     elif self.direction_horizontal == 1:
@@ -119,10 +118,10 @@ class Player():
                 if self.shoot_cd == 0:
                     self.shoot_cd = self.shoot_cd_max
 
-                    bup = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','smallfire_up'))
-                    bud = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','smallfire_down'))
-                    bul = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','smallfire_left'))
-                    bur = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','smallfire_right'))
+                    bup = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','smallfire_up'))
+                    bud = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','smallfire_down'))
+                    bul = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','smallfire_left'))
+                    bur = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','smallfire_right'))
                     if self.direction_horizontal == -1:
                         picture = bul
                     elif self.direction_horizontal == 1:

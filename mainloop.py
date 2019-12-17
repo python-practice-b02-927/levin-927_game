@@ -9,48 +9,48 @@ import draw
 import os
 
 
-action_left_pictures = [pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro1')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro2')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro3')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro4')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro5')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro6')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro7')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro8')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','pro9')),
+action_left_pictures = [pygame.image.load(os.path.join('/home/andrey/levin-927_game/','pro1')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','pro2')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','pro3')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','pro4')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','pro5')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','pro6')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','pro7')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','pro8')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','pro9')),
 ]
 
-action_up_pictures = [pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor1')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor2')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor3')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor4')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor5')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor6')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor7')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor8')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','professor9')),
+action_up_pictures = [pygame.image.load(os.path.join('/home/andrey/levin-927_game/','professor1')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','professor2')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','professor3')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','professor4')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','professor5')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','professor6')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','professor7')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','professor8')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','professor9')),
 ]
 
-action_right_pictures = [pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p1')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p2')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p3')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p4')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p5')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p6')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p7')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p8')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','p9')),
+action_right_pictures = [pygame.image.load(os.path.join('/home/andrey/levin-927_game/','p1')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','p2')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','p3')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','p4')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','p5')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','p6')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','p7')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','p8')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','p9')),
 ]
 
-action_down_pictures = [pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por1')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por2')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por3')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por4')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por5')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por6')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por7')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por8')),
-pygame.image.load(os.path.join('/home/sergey/levin-927_game/','por9')),
+action_down_pictures = [pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por1')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por2')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por3')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por4')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por5')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por6')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por7')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por8')),
+pygame.image.load(os.path.join('/home/andrey/levin-927_game/','por9')),
 ]
 
 
@@ -99,7 +99,7 @@ def actions(keys, player):
         player.damage_right()
 
     
-    if keys[pygame.K_SPACE]:
+    if keys[pygame.K_q]:
         player.change_weapon()
 
 
@@ -173,13 +173,13 @@ def lets_play(run):
 
             for tar in room.tarakanS:
                 if tar.type == 0:
-                    tar.picture_move = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','tarakan_left.png'))
+                    tar.picture_move = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','tarakan_left.png'))
                 elif tar.type == 1: 
-                    tar.picture_move = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','clop'))
+                    tar.picture_move = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','clop'))
                 elif tar.type == 2:
-                    tar.picture_move = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','srider'))
+                    tar.picture_move = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','srider'))
                 elif tar.type == 3:
-                    tar.picture_move = pygame.image.load(os.path.join('/home/sergey/levin-927_game/','bee'))
+                    tar.picture_move = pygame.image.load(os.path.join('/home/andrey/levin-927_game/','bee'))
                 draw.tarakan(win, tar, player)
                 tar.dinamics(player)
                 player.get_damage(tar)
