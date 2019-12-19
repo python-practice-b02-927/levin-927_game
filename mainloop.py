@@ -6,138 +6,138 @@ import draw
 import math
 
 
-def actions(keys, player):
-    if keys[pygame.K_a]:
-        player.move_left()
 
-    if keys[pygame.K_d]:
-        player.move_right()
+class Game():
+    def __init__(self):
+        self.player = player_config.Player(500, 500, 40, 20) #x, y, half_wight, half_hight
+        self.win = pygame.display.set_mode((1000,1000))
+        self.parameter = 'Menu' # 0 - выход, 1 - игра, 2 - смерть, 3 - вход в комнату
 
-    if keys[pygame.K_w]:
-        player.move_up()
+    def update_screen(self):
+        for i in range (0, 2):
+            if self.parameter == 'New room':
+                room = scene.Room(i)
+                self.parameter = 'Continue game'
+            else: 
+                break
+            while self.parameter == 'Continue game':
+                pygame.time.delay(10)
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.parameter = 'Exit'
+                self.actions()
 
-    if keys[pygame.K_s]:
-        player.move_down()
-
-    if keys[pygame.K_UP]:
-        player.damage_up()
-
-    if keys[pygame.K_DOWN]:
-        player.damage_down()
-
-    if keys[pygame.K_LEFT]:
-        player.damage_left()
-
-    if keys[pygame.K_RIGHT]:
-        player.damage_right()
-
+                self.player.damage()
     
-    if keys[pygame.K_q]:
-        player.change_weapon()
+
+                draw.room(self.win)                  #рисуем локацию
+                draw.draw_player(self.win, self.player)
 
 
+                for tar in room.tarakanS:
+                    draw.tarakan(self.win, tar)
+                    tar.dinamics(self.player)
+                    self.player.get_damage(tar)
+                    if tar.health <= 0:
+                        room.tarakanS.remove(tar)
+    
 
-'''
-def menu():
-    win = pygame.display.set_mode((1000,1000))
-    run = True
-    while run:
-        pygame.time.delay(10)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-        draw.start_page(win)
-        if pygame.key.get_pressed()[pygame.K_SPACE]:
-            pygame.quit()
-            lets_play(run)
-            win = pygame.display.set_mode((1000,1000))
-        if pygame.key.get_pressed()[pygame.K_ESCAPE]:
-            run = False
-        pygame.display.update()
+                if room.time_before_create > 0:
+                    room.time_before_create -= 1
+                if len(room.tarakanS) == 0:
+                    if room.number_wave > room.list_enemies[0]:
+                        draw.gate(self.win, room.gate.coordinates)
+                        room.output(self)
+                    else:
+                        draw.pip(self.win)
+                        if ( abs( self.player.x - 500 ) < 25 ) and ( abs( self.player.y - 500 ) < 25 ):
+                            room.create_enemies(scene.list_enemies)
+
+                self.player.health_check(self)
+                pygame.display.update()
 
 
-def title_victory(run):
-    win = pygame.display.set_mode((1000,1000))
-    while run:
-        pygame.time.delay(10)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False        
-        draw.title_victory(win)
-        if pygame.key.get_pressed()[pygame.K_SPACE]:
-            break
-        pygame.display.update()
-    pygame.quit()
+    def actions(self):
+        keys = pygame.key.get_pressed()
 
-def title_death(run):
-    win = pygame.display.set_mode((1000,1000))
-    while run:
-        pygame.time.delay(10)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False        
-        draw.title_death(win)
-        if pygame.key.get_pressed()[pygame.K_SPACE]:
-            break
-    pygame.quit()
+        if keys[pygame.K_a]:
+            self.player.move_left()
 
-'''
-def lets_play(run):
-    win = pygame.display.set_mode((1000,1000))
-    player = player_config.Player(500, 500, 40, 20) #x, y, half_wight, half_hight
-    for i in range (0, 5):
-        room = scene.Room(i)
-        while (player.health > 0) and (room.gate.victory == 0) and run:
-            pygame.time. delay(10)
+        if keys[pygame.K_d]:
+            self.player.move_right()
+
+        if keys[pygame.K_w]:
+            self.player.move_up()
+
+        if keys[pygame.K_s]:
+            self.player.move_down()
+
+        if keys[pygame.K_UP]:
+            self.player.damage_up()
+
+        if keys[pygame.K_DOWN]:
+            self.player.damage_down()
+
+        if keys[pygame.K_LEFT]:
+            self.player.damage_left()
+
+        if keys[pygame.K_RIGHT]:
+            self.player.damage_right()
+    
+        if keys[pygame.K_q]:
+            self.player.change_weapon()  
+
+    def menu(self):
+        time_delay = 50
+        while self.parameter == 'Menu':
+            pygame.time.delay(10)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = False
-            actions(pygame.key.get_pressed(), player)
-
-            player.damage()
-    
-
-            draw.room(win)                  #рисуем локацию
-            draw.draw_player(win, player)
-
-
-            for tar in room.tarakanS:
-                draw.tarakan(win, tar)
-                tar.dinamics(player)
-                player.get_damage(tar)
-                if tar.health <= 0:
-                    room.tarakanS.remove(tar)
-    
-
-            if room.time_before_create > 0:
-                room.time_before_create -= 1
-            if len(room.tarakanS) == 0:
-                if room.number_wave > room.list_enemies[0]:
-                    draw.gate(win, room.gate.coordinates)
-                    room.output(player)
-                else:
-                    draw.pip(win)
-                    if ( abs( player.x - 500 ) < 25 ) and ( abs( player.y - 500 ) < 25 ):
-                        room.create_enemies(scene.list_enemies)
-
-
-
+                    self.parameter = 'Exit'
+            draw.start_page(self.win)
+            if (time_delay == 0 and pygame.key.get_pressed()[pygame.K_RETURN]):
+                self.parameter = 'New room'
+            if pygame.key.get_pressed()[pygame.K_ESCAPE]:
+                self.parameter = 'Exit'
+            if time_delay > 0:
+                time_delay -= 1
             pygame.display.update()
 
-        if room.gate.victory == 0:
-            break 
-            '''
+    def title_death(self):
+        while self.parameter == 'Death':
+            pygame.time.delay(10)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.parameter = 'Exit'       
+            draw.title_death(self.win)
+            if pygame.key.get_pressed()[pygame.K_RETURN]:
+                self.parameter = 'Menu'
+                self.player.health  = self.player.max_health
+            pygame.display.update()
+
+    def title_victory(self):
+        while self.parameter == 'New room':
+            pygame.time.delay(10)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.parameter = 'Exit'        
+            draw.title_victory(self.win)
+            if pygame.key.get_pressed()[pygame.K_RETURN]:
+                self.parameter = 'Menu'
+            pygame.display.update()
+
+
+
+def main():
+    game = Game()
+    while game.parameter != 'Exit':
+        game.menu()
+        game.update_screen()
+        game.title_death()
+        game.title_victory()
+
+
     pygame.quit()
-    if player.health == 0:
-        title_death
-    else: title_victory(run) '''
 
 
-
-
-
-
-#menu()
-run = True
-lets_play(run)
-pygame.quit()
+main()

@@ -62,9 +62,11 @@ class Room():
 			self.number_wave +=1
 
 
-	def output(self, player):
+	def output(self, game):
 		if self.time_before_create == 0:
-			self.gate.input(player)
+			self.gate.input(game)
+
+
 
 
 class Gate():
@@ -74,11 +76,11 @@ class Gate():
 		self.coordinates = (0, 500-self.size, 2*self.wight, 2*self.size)
 		self.victory = 0
 
-	def input(self, player):
+	def input(self, game):
 		self.coordinates = (990-self.wight, 500-self.size, 2*self.wight, 2*self.size )
-		if ( player.x + player.half_wight >= 990 ) and ( player.y + player.half_hight - self.size < 500 ) and ( player.y - player.half_hight + self.size > 500 ):
-			self.victory = 1
-			player.x = player.half_wight + 10
+		if ( game.player.x + game.player.half_wight >= 990 ) and ( game.player.y + game.player.half_hight - self.size < 500 ) and ( game.player.y - game.player.half_hight + self.size > 500 ):
+			game.parameter = 'New room'
+			game.player.x = game.player.half_wight + 10
 
 
 class Enemies():

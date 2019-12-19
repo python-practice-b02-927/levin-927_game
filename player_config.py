@@ -26,7 +26,8 @@ class Player():
         self.lazer.update(self)
         self.bullets = [] 
 
-        self.health = 20
+        self.max_health = 3
+        self.health = self.max_health
 
         self.weapon = -1
 
@@ -97,7 +98,6 @@ class Player():
 
 
 
-
     def change_weapon(self):
         if self.td == 0:
             self.td = self.cd_max
@@ -106,6 +106,10 @@ class Player():
     def get_damage(self, tarakan):
         if tarakan.stop_move == (tarakan.stop_move_max - 1) :
             self.health -= 1
+
+    def health_check(self, game):
+        if self.health <= 0:
+            game.parameter = 'Death'
 
 
 
